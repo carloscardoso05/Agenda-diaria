@@ -26,7 +26,6 @@ export const store = createStore({
     mutations: {
         adicionaTarefa(state: Estado) {
             console.log(state.tarefas)
-            let listaTarefas = state.tarefas || []
 
             if (state.novaTarefa.horarioInicio && state.novaTarefa.horarioInicio) {
                 state.novaTarefa.id = parseInt(state.novaTarefa.horarioInicio.slice(0, 2) + state.novaTarefa.horarioInicio.slice(3, 5))
@@ -37,9 +36,9 @@ export const store = createStore({
 
             const tarefa = state.novaTarefa
 
-            listaTarefas.push(tarefa)
+            state.tarefas.push(tarefa)
 
-            listaTarefas = listaTarefas.sort(function (a, b) { return a.id - b.id })
+            state.tarefas = state.tarefas.sort(function (a, b) { return a.id - b.id })
 
 
         },
@@ -52,22 +51,16 @@ export const store = createStore({
             }
         },
         removerTarefa(state: Estado, index) {
-            let listaTarefas = state.tarefas || []
-            listaTarefas = listaTarefas.filter((tarefa) => tarefa.id != index)
+            state.tarefas = state.tarefas.filter((tarefa) => tarefa.id != index)
         },
         carregarTarefas(state: Estado){
-            let listaTarefas = state.tarefas || []
-            listaTarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
+            state.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
         },
         salvarTarefas(state: Estado){
-            let listaTarefas = state.tarefas || []
+            const parsed = JSON.stringify(state.tarefas);
 
-            console.log(listaTarefas)
-
-            localStorage.setItem('Tarefas', `${JSON.stringify(listaTarefas)}`);
-            listaTarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
-            console.log(listaTarefas)
-
+            localStorage.setItem('Tarefas', parsed);
+            state.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
         }
     }
 })

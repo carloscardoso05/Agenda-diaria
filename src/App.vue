@@ -1,10 +1,10 @@
 <template>
   <h1>{{ diaAtual }}</h1>
-  <FormularioModal titulo='Nova tarefa' />
+  <FormularioModal titulo='Nova tarefa'/>
   <table class="container table table-hover table-bordered">
     <tbody>
       <!-- usar array.sort() para ordenar as tarefas por horário -->
-      <Tarefa v-for='tarefa in listaTarefas' :key="tarefa.id" :tarefa='tarefa' />
+      <Tarefa v-for='tarefa in tarefas' :key="tarefa.id" :tarefa='tarefa'/>
       <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
         Você ainda não adicionou nenhuma tarefa
       </div>
@@ -23,13 +23,12 @@ export default defineComponent({
   name: "App",
   data() {
     return {
-      diaAtual: this.pegarDiaAtual(),
-      listaTarefas: this.tarefas || []
+      diaAtual: this.pegarDiaAtual()  
     }
   },
-  setup() {
+  setup(){
     const store = useStore()
-
+    
     return {
       store,
       tarefas: computed(() => store.state.tarefas)
@@ -69,12 +68,12 @@ export default defineComponent({
       return diaAtual
     }
   },
-  mounted() {
-    this.listaTarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
+  mounted(){
+    this.store.commit('carregarTarefas')
   },
   computed: {
-    listaVazia(): boolean {
-      return this.listaTarefas.length == 0
+    listaVazia(): boolean{
+      return this.tarefas.length == 0
     }
   },
   components: { Tarefa, FormularioModal }

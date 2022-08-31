@@ -104,9 +104,7 @@ export default defineComponent({
          if (this.novaTarefa.descricao != '') {
             this.store.commit('adicionaTarefa')
             this.resetar()
-
-            localStorage.setItem('Tarefas', `${JSON.stringify(this.tarefas)}`);
-            this.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
+            this.store.commit('salvarTarefas')
          } else {
             alert('Tarefa incompleta')
          }
