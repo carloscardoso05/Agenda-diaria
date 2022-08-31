@@ -17,8 +17,8 @@
                </h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- Conteúdo vai aqui -->
             <div class="modal-body">
-               <!-- Conteúdo vai aqui -->
 
                <!-- Formulario -->
                <div class="form-container">
@@ -36,14 +36,14 @@
                         <div class="form-group">
                            <label class="form-label" for="horario-inicio">De:</label>
                            <input class="form-control" type="time" name="horario-inicio" id="horario-inicio"
-                              :disabled="!horarioHabilitado" v-model="novaTarefa.horarioInicio">
+                              :disabled="!horarioHabilitado" v-model="horarioInicio">
                         </div>
 
                         <!-- horario-fim -->
                         <div class="form-group">
                            <label class="form-label" for="horario-fim">Até:</label>
                            <input class="form-control" type="time" name="horario-fim" id="horario-fim"
-                              :disabled="!horarioHabilitado" v-model="novaTarefa.horarioFim">
+                              :disabled="!horarioHabilitado" v-model="horarioFim">
                         </div>
                      </div>
 
@@ -51,7 +51,7 @@
                      <div class="form-group">
                         <label class="form-label" for="tarefa-texto">Tarefa:</label>
                         <input class="form-control" type="text" name="tarefa-texto" id="tarefa-texto"
-                           v-model="novaTarefa.descricao" autocomplete="off" autocapitalize="sentences">
+                           v-model="descricao" autocomplete="off" autocapitalize="sentences">
                      </div>
                   </form>
                </div>
@@ -76,41 +76,59 @@ import { defineComponent } from 'vue';
 import { useStore } from '@/store';
 import { computed } from '@vue/reactivity';
 
+
 export default defineComponent({
    name: 'Formulario-Modal',
    data() {
       return {
-         horarioHabilitado: true
+         horarioHabilitado: true,
+         horarioInicio: '',
+         horarioFim: '',
+         descricao: '',
+         id: 0
+
       }
    },
    setup() {
       const store = useStore()
+      const menorId = computed(() => store.menorId)
 
-      return {
-         novaTarefa: computed(() => store.state.novaTarefa),
-         store,
-         tarefas: computed(() => store.state.tarefas)
-      }
+      return { store, menorId }
    },
    methods: {
       trocarHorario() {
          this.horarioHabilitado = !this.horarioHabilitado;
          if (this.horarioHabilitado === false) {
-            this.novaTarefa.horarioInicio = ''
-            this.novaTarefa.horarioFim = ''
+            this.horarioInicio = ''
+            this.horarioFim = ''
          }
       },
       salvarTarefa() {
-         if (this.novaTarefa.descricao != '') {
-            this.store.commit('adicionaTarefa')
-            this.resetar()
-            this.store.commit('salvarTarefas')
+         if (this.descricao != '') {
+            this.store.adicionarTarefa({
+               horarioInicio: this.horarioInicio,
+               horarioFim: this.horarioFim,
+               descricao: this.descricao,
+               id: this.id
+            })
          } else {
             alert('Tarefa incompleta')
          }
+         this.resetar()
       },
       resetar() {
-         this.store.commit('resetar')
+         this.horarioInicio = ''
+         this.horarioFim = ''
+         this.descricao = ''
+         this.id = 0
+      }
+   },
+   watch: {
+      horarioInicio() {
+         console.log('assisti')
+         if (this.horarioInicio != '') {
+            this.id = parseInt(this.horarioInicio.slice(0, 2) + this.horarioInicio.slice(3, 5))
+         }
       }
    },
    props: {

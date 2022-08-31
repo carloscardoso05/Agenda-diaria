@@ -30,7 +30,7 @@ export default defineComponent({
 
         return {
             store,
-            tarefas: computed(() => store.state.tarefas)
+            tarefas: computed(() => store.$state.tarefas)
         }
     },
     props: {
@@ -50,8 +50,7 @@ export default defineComponent({
     },
     methods: {
         remover() {
-            this.store.commit('removerTarefa', this.tarefa.id)
-            this.store.commit('salvarTarefas')
+            this.store.removerTarefa(this.tarefa.id)
         }
     }
 })
