@@ -73,7 +73,11 @@ export default defineComponent({
   },
   computed: {
     listaVazia(): boolean{
-      return this.tarefas.length == 0
+      if(this.tarefas != null && this.tarefas != undefined){
+        return this.tarefas.length == 0
+      } else{
+        return true
+      }
     }
   },
   components: { Tarefa, FormularioModal }
