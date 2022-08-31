@@ -15,7 +15,7 @@
 import { defineComponent } from 'vue';
 import Tarefa from './components/Tarefa.vue'
 import FormularioModal from './components/FormularioModal.vue';
-import { useStore } from '@/store';
+import { useTarefasStore } from '@/store';
 import { computed } from '@vue/reactivity';
 
 export default defineComponent({
@@ -26,7 +26,7 @@ export default defineComponent({
         }
     },
     setup() {
-        const store = useStore()
+        const store = useTarefasStore()
 
         return {
             store,

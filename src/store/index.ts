@@ -1,7 +1,7 @@
 import ITarefa from '@/interfaces/ITarefa'
 import { defineStore } from 'pinia'
 
-export const useStore = defineStore('main', {
+export const useTarefasStore = defineStore('TarefasStore', {
     state: () => ({
         tarefas: [] as ITarefa[],
         menorId: 0
@@ -18,5 +18,6 @@ export const useStore = defineStore('main', {
         removerTarefa(id: number) {
             this.tarefas = this.tarefas.filter((tarefa) => tarefa.id != id)
         }
-    }
+    },
+    persist: true
 })

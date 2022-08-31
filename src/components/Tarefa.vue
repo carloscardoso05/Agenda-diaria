@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import ITarefa from '@/interfaces/ITarefa';
-import { useStore } from '@/store';
+import { useTarefasStore } from '@/store';
 import { computed } from '@vue/reactivity';
 
 export default defineComponent({
@@ -26,7 +26,7 @@ export default defineComponent({
         }
     },
     setup() {
-        const store = useStore()
+        const store = useTarefasStore()
 
         return {
             store,

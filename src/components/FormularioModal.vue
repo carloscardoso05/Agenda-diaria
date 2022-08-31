@@ -73,7 +73,7 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
-import { useStore } from '@/store';
+import { useTarefasStore } from '@/store';
 import { computed } from '@vue/reactivity';
 
 
@@ -90,7 +90,7 @@ export default defineComponent({
       }
    },
    setup() {
-      const store = useStore()
+      const store = useTarefasStore()
       const menorId = computed(() => store.menorId)
 
       return { store, menorId }
@@ -125,7 +125,6 @@ export default defineComponent({
    },
    watch: {
       horarioInicio() {
-         console.log('assisti')
          if (this.horarioInicio != '') {
             this.id = parseInt(this.horarioInicio.slice(0, 2) + this.horarioInicio.slice(3, 5))
          }
