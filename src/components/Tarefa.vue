@@ -29,7 +29,8 @@ export default defineComponent({
         const store = useStore()
 
         return {
-            store
+            store,
+            tarefas: computed(() => store.state.tarefas)
         }
     },
     props: {
@@ -50,7 +51,9 @@ export default defineComponent({
     methods: {
         remover() {
             this.store.commit('removerTarefa', this.tarefa.id)
-            this.store.commit('salvarTarefas')
+
+            localStorage.setItem('Tarefas', `${JSON.stringify(this.tarefas)}`);
+            this.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
         }
     }
 })

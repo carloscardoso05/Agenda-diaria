@@ -4,7 +4,7 @@
   <table class="container table table-hover table-bordered">
     <tbody>
       <!-- usar array.sort() para ordenar as tarefas por horário -->
-      <Tarefa v-for='tarefa in tarefas' :key="tarefa.id" :tarefa='tarefa' />
+      <Tarefa v-for='tarefa in listaTarefas' :key="tarefa.id" :tarefa='tarefa' />
       <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
         Você ainda não adicionou nenhuma tarefa
       </div>
@@ -70,7 +70,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.store.commit('carregarTarefas')
+    this.listaTarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
   },
   computed: {
     listaVazia(): boolean {

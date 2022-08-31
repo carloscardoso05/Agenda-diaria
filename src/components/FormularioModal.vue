@@ -88,7 +88,8 @@ export default defineComponent({
 
       return {
          novaTarefa: computed(() => store.state.novaTarefa),
-         store      
+         store,
+         tarefas: computed(() => store.state.tarefas)
       }
    },
    methods: {
@@ -103,7 +104,9 @@ export default defineComponent({
          if (this.novaTarefa.descricao != '') {
             this.store.commit('adicionaTarefa')
             this.resetar()
-            this.store.commit('salvarTarefas')
+
+            localStorage.setItem('Tarefas', `${JSON.stringify(this.tarefas)}`);
+            this.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
          } else {
             alert('Tarefa incompleta')
          }
