@@ -52,6 +52,15 @@ export const store = createStore({
         },
         removerTarefa(state: Estado, index) {
             state.tarefas = state.tarefas.filter((tarefa) => tarefa.id != index)
+        },
+        carregarTarefas(state: Estado){
+            state.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
+        },
+        salvarTarefas(state: Estado){
+            const parsed = JSON.stringify(state.tarefas);
+
+            localStorage.setItem('Tarefas', parsed);
+            state.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
         }
     }
 })

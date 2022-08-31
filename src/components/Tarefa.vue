@@ -51,11 +51,7 @@ export default defineComponent({
     methods: {
         remover() {
             this.store.commit('removerTarefa', this.tarefa.id)
-            
-            const parsed = JSON.stringify(this.tarefas);
-
-            localStorage.setItem('Tarefas', parsed);
-            this.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
+            this.store.commit('salvarTarefas')
         }
     }
 })

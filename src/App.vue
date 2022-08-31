@@ -66,10 +66,10 @@ export default defineComponent({
           break;
       }
       return diaAtual
-    },
-    carregarTarefas():void {
-      this.tarefas = JSON.parse(`${localStorage.getItem('Tarefas')}`);
     }
+  },
+  mounted(){
+    this.store.commit('carregarTarefas')
   },
   computed: {
     listaVazia(): boolean{
