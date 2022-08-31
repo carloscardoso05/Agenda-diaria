@@ -1,8 +1,8 @@
 <template>
     <tr @dblclick="remover">
-        <td class="horario" v-if="temHorario">{{  horario  }}</td>
-        <td v-if="temHorario" class="text-wrap">{{  tarefa.descricao  }}</td>
-        <td colspan="2" v-else class="text-wrap">{{  tarefa.descricao  }}</td>
+        <td class="horario" v-if="temHorario">{{ horario }}</td>
+        <td v-if="temHorario" class="text-wrap">{{ tarefa.descricao }}</td>
+        <td colspan="2" v-else class="text-wrap">{{ tarefa.descricao }}</td>
         <td class="btn-remover p-0" @click="remover">
             <i class="bi bi-trash btn btn-danger p-0">
                 Apagar
@@ -29,8 +29,7 @@ export default defineComponent({
         const store = useStore()
 
         return {
-            store,
-            tarefas: computed(() => store.state.tarefas)
+            store
         }
     },
     props: {
@@ -51,6 +50,7 @@ export default defineComponent({
     methods: {
         remover() {
             this.store.commit('removerTarefa', this.tarefa.id)
+            this.store.commit('salvarTarefas')
         }
     }
 })
