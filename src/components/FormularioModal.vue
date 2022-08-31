@@ -104,7 +104,6 @@ export default defineComponent({
          if (this.novaTarefa.descricao != '') {
             this.store.commit('adicionaTarefa')
             this.resetar()
-            this.store.commit('salvarTarefas')
          } else {
             alert('Tarefa incompleta')
          }

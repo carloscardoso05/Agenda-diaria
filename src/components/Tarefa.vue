@@ -51,7 +51,6 @@ export default defineComponent({
     methods: {
         remover() {
             this.store.commit('removerTarefa', this.tarefa.id)
-            this.store.commit('salvarTarefas')
         }
     }
 })
