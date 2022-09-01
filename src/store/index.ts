@@ -8,6 +8,10 @@ export const useTarefasStore = defineStore('TarefasStore', {
     }),
     actions: {
         adicionarTarefa(tarefa: ITarefa) {
+            if(this.tarefas.length == 0){
+                this.menorId = 0
+            }
+
             if (tarefa.id <= 0) {
                 tarefa.id = this.menorId
                 this.menorId--
