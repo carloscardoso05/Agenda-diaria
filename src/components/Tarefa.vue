@@ -1,10 +1,10 @@
 <template>
-    <tr @dblclick="remover">
+    <tr>
         <td class="horario text-nowrap" v-if="temHorario">{{  horario  }}</td>
         <td v-if="temHorario" class="text-wrap border-end-0">{{  tarefa.descricao  }}</td>
         <td colspan="2" v-else class="text-wrap border-end-0">{{  tarefa.descricao  }}</td>
         <td class="btn-remover border-start-0 h-100 align-middle" @click="remover">
-            <button class="bi bi-trash btn btn-danger fs-5"></button>
+            <button class="fa-solid fa-trash-can btn btn-danger fs-5"></button>
         </td>
     </tr>
 </template>

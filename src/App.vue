@@ -1,7 +1,7 @@
 <template>
     <h1>{{ diaAtual }}</h1>
-    <FormularioModal titulo='Nova tarefa' />
-    <table class="container table table-hover table-bordered">
+    <FormularioModal titulo='Nova tarefa' class="modal"/>
+    <table class="container table is-bordered is-hoverable"> 
         <tbody>
             <Tarefa v-for='tarefa in tarefas' :key="tarefa.id" :tarefa='tarefa' />
             <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Tarefa from './components/Tarefa.vue'
-import FormularioModal from './components/FormularioModal.vue';
+import FormularioModal from "./components/FormularioModal.vue";
 import { useTarefasStore } from '@/store';
 import { computed } from '@vue/reactivity';
 
@@ -72,7 +72,7 @@ export default defineComponent({
             return this.tarefas.length == 0
         }
     },
-    components: { Tarefa, FormularioModal }
+    components: { Tarefa, FormularioModal}
 });
 </script>
 

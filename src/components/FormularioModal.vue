@@ -2,69 +2,62 @@
 
    <!-- Button trigger modal -->
    <button type="button" class="fa-solid fa-plus btn-adicionar btn btn-primary rounded-5 mb-3" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">
+      data-bs-target="#exampleModal" @click="switchModal">
    </button>
 
-   <!-- Modal -->
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-      data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">
-                  {{ titulo }}
-               </h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- Conteúdo vai aqui -->
-            <div class="modal-body">
+   <div class="modal" :class="{ 'is-active': modalAberto }">
+      <div class="modal-background"></div>
+      <div class="modal-card">
 
-               <!-- Formulario -->
-               <div class="form-container">
-                  <form id="form">
-                     <!-- horário liga/desliga -->
-                     <div class="form-check form-switch d-inline-block">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                           @click="trocarHorario" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Horário</label>
-                     </div>
+         <header class="modal-card-head">
+            <p class="modal-card-title">{{ titulo }}</p>
+            <button @click="switchModal" class="delete" aria-label="close"></button>
+         </header>
 
-                     <div class="form-group d-flex justify-content-evenly">
+         <section class="modal-card-body">
+            <!-- Content ... -->
+            <form class="form">
 
-                        <!-- horario-inicio -->
-                        <div class="form-group">
-                           <label class="form-label" for="horario-inicio">De:</label>
-                           <input class="form-control" type="time" name="horario-inicio" id="horario-inicio"
-                              :disabled="!horarioHabilitado" v-model="horarioInicio">
-                        </div>
-
-                        <!-- horario-fim -->
-                        <div class="form-group">
-                           <label class="form-label" for="horario-fim">Até:</label>
-                           <input class="form-control" type="time" name="horario-fim" id="horario-fim"
-                              :disabled="!horarioHabilitado" v-model="horarioFim">
-                        </div>
-                     </div>
-
-                     <!-- tarefa-texto -->
-                     <div class="form-group">
-                        <label class="form-label" for="tarefa-texto">Tarefa:</label>
-                        <input class="form-control" type="text" name="tarefa-texto" id="tarefa-texto"
-                           v-model="descricao" autocomplete="off" autocapitalize="sentences">
-                     </div>
-                  </form>
+               <div class="field">
+                  <label class="label">
+                     <input type="checkbox" @click="switchHorario" checked>
+                     Horário
+                  </label>
                </div>
 
-            </div>
+               <div class="field is-flex is-justify-content-space-evenly">
+                  <label class="label">
+                     <div class="control">
+                        De:
+                        <input type="time" class="input is-small" v-model="horarioInicio" :disabled="!horarioHabilitado">
+                     </div>
+                  </label>
 
-            <!-- Botões -->
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="resetar">Fechar</button>
-               <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click.prevent="salvarTarefa">
-                  Salvar
-               </button>
-            </div>
-         </div>
+                  <label class="label">
+                     <div class="control">
+                        Até:
+                        <input type="time" class="input is-small" v-model="horarioFim" :disabled="!horarioHabilitado">
+                     </div>
+                  </label>
+               </div>
+               
+               <div class="field">
+                  <label class="label">
+                     <div class="control">
+                        Descrição:
+                        <textarea class="textarea" placeholder="Ex: ir ao médico" rows="1" v-model="descricao"></textarea>
+                     </div>
+                  </label>
+               </div>
+               
+            </form>
+
+         </section>
+
+         <footer class="modal-card-foot">
+            <button @click="salvarTarefa" class="button is-success">Salvar</button>
+            <button @click="resetar" class="button">Fechar</button>
+         </footer>
       </div>
    </div>
 </template>
@@ -81,11 +74,13 @@ export default defineComponent({
    data() {
       return {
          horarioHabilitado: true,
+
          horarioInicio: '',
          horarioFim: '',
          descricao: '',
-         id: 0
+         id: 0,
 
+         modalAberto: true
       }
    },
    setup() {
@@ -95,7 +90,7 @@ export default defineComponent({
       return { store, menorId }
    },
    methods: {
-      trocarHorario() {
+      switchHorario() {
          this.horarioHabilitado = !this.horarioHabilitado;
          if (this.horarioHabilitado === false) {
             this.horarioInicio = ''
@@ -120,6 +115,10 @@ export default defineComponent({
          this.horarioFim = ''
          this.descricao = ''
          this.id = 0
+         this.switchModal()
+      },
+      switchModal(): void {
+         this.modalAberto = !this.modalAberto
       }
    },
    watch: {
@@ -139,8 +138,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-   .btn-adicionar{
-      height: 40px;
-      width: 40px;
-   }
+.btn-adicionar {
+   height: 40px;
+   width: 40px;
+}
+
+.modal-card{
+   max-width: 400px;
+}
 </style>
