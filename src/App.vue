@@ -5,7 +5,7 @@
         <tbody>
             <Tarefa v-for='tarefa in tarefas' :key="tarefa.id" :tarefa='tarefa' />
             <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
-                Você ainda não adicionou nenhuma tarefa
+                Você ainda não adicionou nenhuma tarefa 😕
             </div>
         </tbody>
     </table>

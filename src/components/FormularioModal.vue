@@ -1,9 +1,8 @@
 <template>
 
    <!-- Button trigger modal -->
-   <button type="button" class="btn-adicionar btn btn-primary rounded-5 mb-3" data-bs-toggle="modal"
+   <button type="button" class="fa-solid fa-plus btn-adicionar btn btn-primary rounded-5 mb-3" data-bs-toggle="modal"
       data-bs-target="#exampleModal">
-      <i class="fa-solid fa-plus"></i>
    </button>
 
    <!-- Modal -->
@@ -140,4 +139,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+   .btn-adicionar{
+      height: 40px;
+      width: 40px;
+   }
 </style>
