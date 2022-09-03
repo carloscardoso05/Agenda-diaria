@@ -1,10 +1,13 @@
 <template>
-    <tr @dblclick="remover">
-        <td class="horario text-nowrap" v-if="temHorario">{{  horario  }}</td>
-        <td v-if="temHorario" class="text-wrap border-end-0">{{  tarefa.descricao  }}</td>
-        <td colspan="2" v-else class="text-wrap border-end-0">{{  tarefa.descricao  }}</td>
-        <td class="btn-remover border-start-0 h-100 align-middle" @click="remover">
-            <button class="bi bi-trash btn btn-danger fs-5"></button>
+    <tr>
+        <td class="horario text-nowrap" v-if="temHorario" :class="{'concluido' : concluido}">{{ horario }}</td>
+        <td v-if="temHorario" class="text-wrap border-end-0" :class="{'concluido' : concluido}">{{ tarefa.descricao }}</td>
+        <td colspan="2" v-else class="text-wrap border-end-0" :class="{'concluido' : concluido}">{{ tarefa.descricao }}</td>
+        <td class="btn-remover border-start-0 border-end-0 h-100 align-middle">
+            <button class="fa-solid fa-check btn btn-success fs-5" @click="concluir"></button>
+        </td>
+        <td class="btn-remover border-start-0 h-100 align-middle">
+            <button class="fa-regular fa-trash-can btn btn-danger fs-5" @click="remover"></button>
         </td>
     </tr>
 </template>
@@ -20,7 +23,8 @@ export default defineComponent({
     data() {
         return {
             horario: `${this.tarefa.horarioInicio} - ${this.tarefa.horarioFim}`,
-            descricao: `${this.tarefa.descricao}`
+            descricao: `${this.tarefa.descricao}`,
+            concluido: false
         }
     },
     setup() {
@@ -49,6 +53,9 @@ export default defineComponent({
     methods: {
         remover() {
             this.store.removerTarefa(this.tarefa.id)
+        },
+        concluir() {
+            this.concluido = !this.concluido
         }
     }
 })
@@ -61,6 +68,10 @@ export default defineComponent({
 
 .btn-remover {
     width: 6%;
+}
+
+.concluido {
+    text-decoration: line-through;
 }
 
 @media (max-width: 735px) {

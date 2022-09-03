@@ -84,7 +84,8 @@ export default defineComponent({
          horarioInicio: '',
          horarioFim: '',
          descricao: '',
-         id: 0
+         id: 0,
+         concluido: false
 
       }
    },
@@ -108,7 +109,8 @@ export default defineComponent({
                horarioInicio: this.horarioInicio,
                horarioFim: this.horarioFim,
                descricao: this.descricao,
-               id: this.id
+               id: this.id,
+               concluido: this.concluido
             })
          } else {
             alert('Tarefa incompleta')

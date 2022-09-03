@@ -21,6 +21,12 @@ export const useTarefasStore = defineStore('TarefasStore', {
         },
         removerTarefa(id: number) {
             this.tarefas = this.tarefas.filter((tarefa) => tarefa.id != id)
+        },
+        concluirTarefa(id:number){
+            const tarefa = this.tarefas.find((tarefa) => tarefa.id == id)
+            let tarefaConcluido = tarefa?.concluido
+            tarefaConcluido = !tarefaConcluido
+            console.log(tarefaConcluido);            
         }
     },
     persist: true
