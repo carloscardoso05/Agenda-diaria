@@ -141,8 +141,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-   .btn-adicionar{
-      height: 40px;
-      width: 40px;
-   }
+.btn-adicionar {
+   height: 40px;
+   width: 40px;
+   box-shadow: #0b5ed7d1 2px 2px 9px 0px;
+}
 </style>

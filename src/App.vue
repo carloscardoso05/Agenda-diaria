@@ -1,12 +1,12 @@
 <template>
     <h1>{{ diaAtual }}</h1>
     <FormularioModal titulo='Nova tarefa' />
-    <table class="container table table-hover table-bordered">
+    <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
+        Você ainda não adicionou nenhuma tarefa 😕
+    </div>
+    <table class="container table table-hover" v-else>
         <tbody>
             <Tarefa v-for='tarefa in tarefas' :key="tarefa.id" :tarefa='tarefa' />
-            <div class="alert alert-primary fs-5 sm-w-50 mx-auto" v-if="listaVazia">
-                Você ainda não adicionou nenhuma tarefa 😕
-            </div>
         </tbody>
     </table>
 </template>
@@ -82,7 +82,19 @@ export default defineComponent({
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
     margin-top: 60px;
+}
+
+.table {
+    border-radius: 12px;
+    box-shadow: #dee2e6 0 0 0 1.5px;
+}
+
+tbody {
+    border-radius: 12px;
+}
+
+.alert, .table{
+    max-width: 700px;
 }
 </style>

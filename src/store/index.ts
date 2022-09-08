@@ -23,10 +23,9 @@ export const useTarefasStore = defineStore('TarefasStore', {
             this.tarefas = this.tarefas.filter((tarefa) => tarefa.id != id)
         },
         concluirTarefa(id:number){
-            const tarefa = this.tarefas.find((tarefa) => tarefa.id == id)
-            let tarefaConcluido = tarefa?.concluido
-            tarefaConcluido = !tarefaConcluido
-            console.log(tarefaConcluido);            
+            const tarefa: any = this.tarefas.find((tarefa) => tarefa.id == id)
+            const index = this.tarefas.indexOf(tarefa)
+            this.tarefas[index].concluido = !this.tarefas[index].concluido
         }
     },
     persist: true
