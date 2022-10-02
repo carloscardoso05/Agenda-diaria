@@ -1,24 +1,2 @@
-# agenda-diaria-vue-fix
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Agenda Diária
+Uma agenda diária criada com Vue.js. Também usando plugin de PWA e de LocalStorage
